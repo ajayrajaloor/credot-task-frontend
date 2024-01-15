@@ -25,10 +25,11 @@ const Categories = () => {
       // 'http://localhost:3030'
       "https://credot.onrender.com"
       ;
-  
-      if (selectedCategory && selectedCategory.toLowerCase() !== 'all') {
-        apiUrl += `?category=${selectedCategory.toLowerCase()}`;
-      }
+
+      if (selectedCategory && selectedCategory !== 'All') {
+        apiUrl += `?category=${selectedCategory}`;
+      } 
+      
   
       const response = await axios.get(apiUrl);
       const shuffledProducts = shuffleArray(response.data);
@@ -58,12 +59,6 @@ const Categories = () => {
     toast.success('Item added to cart');
   };
 
-  const categories = [
-    { name: 'All', color: 'emerald' },
-    { name: 'Watch', color: 'yellow' },
-    { name: 'Bag', color: 'pink' },
-    { name: 'Shoe', color: 'blue' },
-  ];
 
   const indexOfLastProduct = (currentPage + 1) * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -78,21 +73,79 @@ const Categories = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row justify-between mt-8 gap-5 ">
-        {categories.map((category) => (
-          <div key={category.name} className="category-item mx-auto my-auto">
+        <div className="category-item mx-auto my-auto">
             <button
-              className={`bg-${category.color}-500 hover:bg-gray-300 p-3 rounded-md flex items-center w-48 justify-between ${
-                selectedCategory === category.name ? 'bg-gray-300' : ''
+              className={`bg-emerald-500 hover:bg-gray-300 p-3 rounded-md flex items-center w-48 justify-between ${
+                selectedCategory === "All" ? "bg-gray-300" : ""
               }`}
-              onClick={() => handleCategoryClick(category.name)}
+              onClick={() => handleCategoryClick("All")}
             >
               <span className="text-white text-2xl md:text-4xl w-20 md:w-auto">
-                {category.name}
+                All
               </span>
             </button>
           </div>
-        ))}
-      </div>
+
+          <div className="category-item mx-auto my-auto">
+            <button
+              className={`bg-yellow-500 hover:bg-gray-300 p-3 rounded-md flex items-center w-48 justify-between ${
+                selectedCategory === "watch" ? "bg-gray-300" : ""
+              }`}
+              onClick={() => handleCategoryClick("watch")}
+            >
+              <span className="text-white text-2xl md:text-4xl w-20 md:w-auto">
+                Watch
+              </span>
+              <div className="ml-2 md:ml-4 w-10 h-10">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTVqipXA6NVjwo3oAqb0g8mQFLjv-6rZn9Tg&usqp=CAU"
+                  alt="Watches"
+                  className="rounded-full w-full h-full"
+                />
+              </div>
+            </button>
+          </div>
+
+          <div className="category-item mx-auto my-auto">
+            <button
+              className={`bg-pink-500 hover:bg-gray-300 p-3 rounded-md flex items-center w-48 justify-between ${
+                selectedCategory === "bag" ? "bg-gray-300" : ""
+              }`}
+              onClick={() => handleCategoryClick("bag")}
+            >
+              <span className="text-white text-2xl md:text-4xl w-20 md:w-auto">
+                Bag
+              </span>
+              <div className="ml-2 md:ml-4 w-10 h-10">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIgBPQdiusVzs67triiSbw_bSqsmp_g-vnzw&usqp=CAU"
+                  alt="Bags"
+                  className="rounded-full w-full h-full"
+                />
+              </div>
+            </button>
+          </div>
+
+          <div className="category-item mx-auto my-auto">
+            <button
+              className={`bg-blue-500 hover:bg-gray-300 p-3 rounded-md flex items-center w-48 justify-between ${
+                selectedCategory === "shoe" ? "bg-gray-300" : ""
+              }`}
+              onClick={() => handleCategoryClick("shoe")}
+            >
+              <span className="text-white text-2xl md:text-4xl w-20 md:w-auto">
+                Shoes
+              </span>
+              <div className="ml-2 md:ml-4 w-10 h-10">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrkKKf4OxYCWRKWe0vzevLfOIKkvLABPt4Q&usqp=CAU"
+                  alt="Shoes"
+                  className="rounded-full w-full h-full"
+                />
+              </div>
+            </button>
+          </div>
+        </div>
 
       <Products products={currentProducts} addToCart={handleAddToCart} />
 
