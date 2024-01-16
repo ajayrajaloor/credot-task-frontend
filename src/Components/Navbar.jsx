@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { BsCart4 } from 'react-icons/bs';
-import Modal from 'react-modal';
-import Cart from './Cart';
-import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from '../redux/actions/cartActions';
+import React, { useState } from "react";
+import { BsCart4 } from "react-icons/bs";
+import Modal from "react-modal";
+import Cart from "./Cart";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../redux/actions/cartActions";
+import { Link } from "react-router-dom";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
-const Navbar = () => {
+const Navbar = ({ handleCategoryClick }) => {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const cartItems = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -24,21 +25,42 @@ const Navbar = () => {
     dispatch(clearCart());
   };
 
+  const handleNavbarCategoryClick = (category) => {
+    handleCategoryClick(category);
+    
+      const productsSection = document.getElementById("products-section");
+      productsSection.scrollIntoView({ behavior: "smooth" });
+    
+  };
+
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-50">
       <div className="flex items-center mb-4 sm:mb-0">
-      <button className="mr-4" onClick={() => console.log("Home clicked")}>
-  Home
-</button>
-<button className="mr-4" onClick={() => console.log("Shoes clicked")}>
-  Shoes
-</button>
-<button className="mr-4" onClick={() => console.log("Backpack clicked")}>
-  Backpack
-</button>
-<button className="mr-4" onClick={() => console.log("Contact clicked")}>
-  Contact
-</button>
+        <Link
+          to="/"
+          className="mr-4"
+         onClick={() => (window.location.href = '/')}
+        >
+          Home
+        </Link>
+        <button
+          className="mr-4"
+          onClick={() => handleNavbarCategoryClick("shoe")}
+        >
+          Shoes
+        </button>
+        <button
+          className="mr-4"
+          onClick={() => handleNavbarCategoryClick("bag")}
+        >
+          Backpack
+        </button>
+        <button
+          className="mr-4"
+          onClick={() => handleNavbarCategoryClick("watch")}
+        >
+          Watch
+        </button>
       </div>
 
       <div className="relative">

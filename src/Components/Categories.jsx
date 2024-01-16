@@ -7,17 +7,23 @@ import { toast } from 'react-toastify';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import ReactPaginate from 'react-paginate';
 
-const Categories = () => {
+
+
+export let setSelectedCategory;
+export let setCurrentPage;
+
+
+const Categories = ({ selectedCategory, handleCategoryClick }) => {
   const [products, setProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [currentPage, setCurrentPage] = useState(0);
-  const productsPerPage = 6;
+ const [currentPage, setCurrentPage] = useState(0);
+  const productsPerPage = 8;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setCurrentPage(0);
     fetchProducts();
-  }, [selectedCategory, currentPage]);
+  }, [selectedCategory]);
 
   const fetchProducts = async () => {
     try {
@@ -29,8 +35,7 @@ const Categories = () => {
       if (selectedCategory && selectedCategory !== 'All') {
         apiUrl += `?category=${selectedCategory}`;
       } 
-      
-  
+
       const response = await axios.get(apiUrl);
       const shuffledProducts = shuffleArray(response.data);
       setProducts(shuffledProducts);
@@ -48,11 +53,6 @@ const Categories = () => {
     return shuffledArray;
   };
 
-
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(0); 
-  };
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -147,7 +147,9 @@ const Categories = () => {
           </div>
         </div>
 
-      <Products products={currentProducts} addToCart={handleAddToCart} />
+        <div id="products-section">
+        <Products products={currentProducts} addToCart={handleAddToCart} />
+      </div>
 
       <ReactPaginate
         previousLabel={
@@ -167,7 +169,7 @@ const Categories = () => {
         onPageChange={handlePageClick}
         containerClassName={'pagination flex justify-center mt-8'}
         subContainerClassName={'pages pagination'}
-        activeClassName={'bg-gray-500 text-white'}
+        activeClassName={'bg-gray-500 text-white active'}
         pageClassName={
           'block border border-solid border-gray-200 hover:bg-gray-300 w-5 h-10 flex items-center justify-center rounded-md mx-2 cursor-pointer'
         }

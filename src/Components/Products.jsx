@@ -3,9 +3,9 @@ import React from "react";
 const Products = ({ products, addToCart  }) => {
     console.log(products,'prddddddd');
   return (
-    <div className="flex flex-wrap justify-between">
+    <div className="flex flex-wrap justify-center gap-10 mx-auto px-10 mt-10 ">
       {products.map((product) => (
-        <div key={product._id} className="m-4 flex flex-col max-w-xs w-full md:w-1/3 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        <div key={product._id} className=" flex flex-col max-w-xs w-full md:w-1/5 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md mt-3">
           <a className="flex h-60 w-full overflow-hidden" href="#">
             <img
               className="object-contain mx-auto my-auto"

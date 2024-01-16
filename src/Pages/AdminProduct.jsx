@@ -59,11 +59,15 @@ const AdminProduct = ({ addProduct }) => {
 
         const formData = { ...values, imageUrl };
 
+        console.log(formData);
+
         const response = await axios.post(
           // "http://localhost:3030/admin/add-product",
           "https://credot.onrender.com/admin/add-product",
           formData
         );
+
+          console.log(response,'ressssss');
 
         if (response.status === 201) {
           console.log("Product added successfully:", response.data.product);
@@ -287,11 +291,11 @@ const AdminProduct = ({ addProduct }) => {
         </form>
       </Modal>
 
-      <div className="flex flex-wrap justify-center items-center mt-8">
+      <div className="flex flex-wrap justify-center  mx-auto mt-8 gap-5">
         {currentProducts.map((product, index) => (
           <div
             key={index}
-            className="m-4 flex flex-col max-w-xs w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/3 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
+            className="m-4 flex flex-col max-w-xs w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
           >
             <div className="flex h-60 w-full overflow-hidden">
               <img
