@@ -304,7 +304,7 @@ const AdminProduct = ({ addProduct }) => {
                 alt="product image"
               />
             </div>
-            <div className="flex flex-col mt-4 px-5 pb-5 justify-center items-center">
+            <div className="flex flex-col mt-4  pb-5 justify-center items-center">
               <h5 className="text-xl tracking-tight text-slate-900">
                 {product.name}
               </h5>
